@@ -1,0 +1,7 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins");
+@import "tailwindcss";
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #eff3fa;
+}
