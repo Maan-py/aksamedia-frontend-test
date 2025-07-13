@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import type User from "../types";
-import { saveToLocalStorage } from "../utils";
+import { getFromLocalStorage, saveToLocalStorage } from "../utils";
+
+const storedUser = getFromLocalStorage();
 
 const STATIC_USER: User = {
-  name: "Luqmaan",
+  name: storedUser?.name || "Luqmaan",
   username: "admin",
   password: "admin123",
 };
@@ -33,7 +35,7 @@ export default function Login({ setUser }: Props) {
       saveToLocalStorage(user);
       navigate("/");
     } else {
-      setError("Username atau password salah!");
+      setError("Username or password is not correct!");
       setForm({
         username: "",
         password: "",
