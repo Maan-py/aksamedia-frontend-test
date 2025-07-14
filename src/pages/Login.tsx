@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import type User from "../types";
+import type { User } from "../types";
 import { getFromLocalStorage, saveToLocalStorage } from "../utils";
 
 const storedUser = getFromLocalStorage();
