@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Create() {
+  const navigate = useNavigate();
   const [product, setProduct] = useState({
     id: "",
     name: "",
@@ -17,6 +19,7 @@ export default function Create() {
     const newProduct = { ...product, id: newId, price: parsedPrice };
     const updatedProducts = [...storedProducts, newProduct];
     localStorage.setItem("PRODUCT", JSON.stringify(updatedProducts));
+    navigate("/");
   }
 
   return (

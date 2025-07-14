@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import type { Product } from "../types";
 
 export default function Update() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [product, setProduct] = useState<Product>();
 
@@ -19,6 +20,7 @@ export default function Update() {
     const updated = storedProducts.map((p: { id: string }) => (p.id === product.id ? product : p));
 
     localStorage.setItem("PRODUCT", JSON.stringify(updated));
+    navigate("/");
   }
 
   return (
