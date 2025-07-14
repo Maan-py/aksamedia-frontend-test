@@ -58,7 +58,7 @@ Aplikasi web berbasis React yang dibangun untuk Tes Magang Frontend Developer di
 1. **Clone repository**
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Maan-py/aksamedia-frontend-test/tree/vercel-deploy-legacy
    cd aksamedia-frontend-test
    ```
 
