@@ -12,8 +12,30 @@ export default function Navbar({ user, setUser }: Props) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [isHamburgerOpen, setIsHamburgerOpen] = useState<boolean>(false);
+  const [isDarkActive, setIsDarkActive] = useState(() => {
+    const theme = localStorage.getItem("THEME");
+
+    if (theme === "dark") {
+      return true;
+    } else if (theme === "light") {
+      return false;
+    } else {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }
+  });
   const dropdownRef = useRef<HTMLDivElement>(null);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (isDarkActive) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("THEME", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("THEME", "light");
+    }
+  }, [isDarkActive]);
+
   useEffect(() => {
     function clickOutside(e: MouseEvent) {
       const isClickInsideDropdown = dropdownRef.current && dropdownRef.current.contains(e.target as Node);
@@ -41,19 +63,22 @@ export default function Navbar({ user, setUser }: Props) {
     navigate("/login");
   }
   return (
-    <nav className="bg-[#0d5cd7] z-50 text-white flex justify-between p-5 sticky top-0">
+    <nav className="bg-[#0d5cd7] z-50 text-white dark:text-black flex justify-between p-5 sticky top-0">
       {/* Desktop */}
-      <div className="flex justify-center items-center dark:bg-gray-800">
-        <button onClick="(() => document.body.classList.toggle('dark'))()" className="h-12 w-12 rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700">
-          <svg className="fillRule-700 block dark:hidden" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-          </svg>
-          <svg className="fillRule-500 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-              fillRule="evenodd"
-              clipRule="evenodd"></path>
-          </svg>
+      <div className="flex justify-center items-center">
+        <button onClick={() => setIsDarkActive(!isDarkActive)} className={` h-12 w-12 rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700`}>
+          {isDarkActive ? (
+            <svg className="fill-white" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+            </svg>
+          ) : (
+            <svg className="fill-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                fillRule="evenodd"
+                clipRule="evenodd"></path>
+            </svg>
+          )}
         </button>
       </div>
       <div className="hidden xl:block w-full">
