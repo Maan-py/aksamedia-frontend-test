@@ -14,7 +14,7 @@ import Update from "./pages/Update";
 function App() {
   const [user, setUser] = useState(getFromLocalStorage());
   return (
-    <>
+    <body className="bg-blue-100">
       {user?.name && <Navbar user={user.name} setUser={setUser} />}
       <Routes>
         <Route path="/" element={user?.name ? <Home /> : <Login setUser={setUser} />}></Route>
@@ -25,7 +25,7 @@ function App() {
         <Route path="/dashboard/update/:id" element={user?.name ? <Update /> : <Login setUser={setUser} />}></Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </>
+    </body>
   );
 }
 
