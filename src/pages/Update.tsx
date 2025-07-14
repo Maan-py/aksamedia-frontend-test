@@ -12,7 +12,8 @@ export default function Update() {
     setProduct(selectedProduct);
   }, [id]);
 
-  function handleSubmit() {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     if (!product) return;
     const storedProducts = JSON.parse(localStorage.getItem("PRODUCT") || "[]");
     const updated = storedProducts.map((p: { id: string }) => (p.id === product.id ? product : p));

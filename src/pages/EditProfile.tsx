@@ -10,8 +10,8 @@ export default function EditProfile({ user, setUser }: Props) {
   const [newName, setNewName] = useState(user.name);
   const [error, setError] = useState("");
 
-  function handleSubmit() {
-    // e.preventDefault();
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
 
     if (newName.trim() !== "") {
       setUser({
@@ -36,7 +36,7 @@ export default function EditProfile({ user, setUser }: Props) {
           </div>
         </div>
         <div className="flex">
-          <button className="bg-[#0d5cd7] p-3 rounded-full justify-center w-full text-white font-bold text-xl font-sans cursor-pointer hover:opacity-80 mt-15" onClick={handleSubmit}>
+          <button className="bg-[#0d5cd7] p-3 rounded-full justify-center w-full text-white font-bold text-xl font-sans cursor-pointer hover:opacity-80 mt-15" >
             Change Name
           </button>
         </div>

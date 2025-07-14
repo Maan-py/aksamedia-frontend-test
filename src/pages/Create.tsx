@@ -8,7 +8,8 @@ export default function Create() {
     category: "",
   });
 
-  function handleSubmit() {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     const parsedPrice = parseFloat(product.price);
     const storedProducts = JSON.parse(localStorage.getItem("PRODUCT") || "[]");
 
